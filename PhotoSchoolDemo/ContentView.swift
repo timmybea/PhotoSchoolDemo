@@ -9,9 +9,34 @@
 import SwiftUI
 
 struct ContentView: View {
+    
+    @State var videos = [Video]()
+    
     var body: some View {
-        Text("How to Hold You iPhone When Taking Photos")
+        NavigationView {
+            List(videos, id: \.id) { video in
+                HStack {
+                    Image(systemName: "photo").resizable().frame(width: 50, height: 50)
+                    Text(video.name)
+                }
+            }.navigationBarTitle("Videos")
+                .onAppear {
+                    self.loadData()
+            }
+        }
     }
+    
+    func loadData() {
+        
+        VideoService().getVideos { (result) in
+            switch result {
+            case .success(let videos):
+                self.videos = videos
+            case .failure(let error):
+                print("\(error.localizedDescription), File: \(#file), line: \(#line)")
+            }
+        }
+     }
 }
 
 struct ContentView_Previews: PreviewProvider {
