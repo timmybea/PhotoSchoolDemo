@@ -7,8 +7,13 @@
 //
 
 import Foundation
+import Combine
 
-class VideoService : WebService {
+protocol WebServiceVideo {
+     func getTestVideos() -> AnyPublisher<VideoResult, Error>
+}
+
+class VideoService : WebService, WebServiceVideo {
     
     enum VideoURL {
         case getTestVideos
@@ -21,42 +26,12 @@ class VideoService : WebService {
         }
     }
     
-    func getVideos(_ completion: @escaping(Result<[Video], Error>)->()) {
-        
-        let request = URLRequest(url: VideoURL.getTestVideos.url)
-        
-        URLSession.shared.dataTask(with: request) { (data, response, error) in
-            
-            guard error == nil else {
-                completion(.failure(error!))
-                return
-            }
-            
-            guard let httpURLResponse = response as? HTTPURLResponse else {
-                completion(.failure(WebServiceError.noResponse))
-                return
-            }
-                
-            switch httpURLResponse.statusCode {
-            case 200:
-                guard let unwrappedData = data else {
-                    completion(.failure(WebServiceError.noData))
-                    return
-                }
-                    
-                guard let videoResult = try? JSONDecoder().decode(VideoResult.self, from: unwrappedData) else {
-                    completion(.failure(WebServiceError.parsing))
-                    return
-                }
-                    
-                completion(.success(videoResult.videos))
-                
-            default:
-                completion(.failure(WebServiceError.badStatus(httpURLResponse.statusCode)))
-            }
-            
-        }.resume()
-        
+    func getTestVideos() -> AnyPublisher<VideoResult, Error> {
+        return URLSession.shared.dataTaskPublisher(for: VideoURL.getTestVideos.url)
+            .tryMap { try self.validate($0.data, $0.response) }
+            .decode(type: VideoResult.self, decoder: JSONDecoder())
+            .receive(on: DispatchQueue.main)
+            .eraseToAnyPublisher()
     }
     
 }

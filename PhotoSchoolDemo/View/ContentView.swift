@@ -10,13 +10,14 @@ import SwiftUI
 
 struct ContentView: View {
     
-    @ObservedObject private var videoListViewModel = VideoListViewModel()
+    @ObservedObject private var videoListViewModel = VideoListViewModel(VideoService())
+    @Environment(\.imageCache) var cache: ImageCache
     
     var body: some View {
         NavigationView {
             List(videoListViewModel.videos, id: \.id) { video in
                 HStack {
-                    Image(systemName: "")
+                    AsyncImage(url: video.thumbnailURL, placeholder: Image(systemName: "photo"), cache: self.cache).frame(width: 40, height: 40).aspectRatio(contentMode: .fit).cornerRadius(4)
                     Text(video.name)
                 }
             }.navigationBarTitle("Videos")

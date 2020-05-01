@@ -7,7 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		B02DF388245C685D00F29F4C /* CachingImageService.swift in Sources */ = {isa = PBXBuildFile; fileRef = B02DF387245C685D00F29F4C /* CachingImageService.swift */; };
+		B02DF388245C685D00F29F4C /* ImageLoader.swift in Sources */ = {isa = PBXBuildFile; fileRef = B02DF387245C685D00F29F4C /* ImageLoader.swift */; };
 		B070D6D6245BA9F000FDF4A5 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = B070D6D5245BA9F000FDF4A5 /* AppDelegate.swift */; };
 		B070D6D8245BA9F000FDF4A5 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = B070D6D7245BA9F000FDF4A5 /* SceneDelegate.swift */; };
 		B070D6DA245BA9F000FDF4A5 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B070D6D9245BA9F000FDF4A5 /* ContentView.swift */; };
@@ -18,10 +18,11 @@
 		B070D6EE245BD79800FDF4A5 /* VideoService.swift in Sources */ = {isa = PBXBuildFile; fileRef = B070D6ED245BD79800FDF4A5 /* VideoService.swift */; };
 		B070D6F0245BDBF200FDF4A5 /* WebService.swift in Sources */ = {isa = PBXBuildFile; fileRef = B070D6EF245BDBF200FDF4A5 /* WebService.swift */; };
 		B070D6F3245BDEE500FDF4A5 /* VideoListViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = B070D6F2245BDEE500FDF4A5 /* VideoListViewModel.swift */; };
+		B0D3F1DE245CAB8E003E44B6 /* AsyncImage.swift in Sources */ = {isa = PBXBuildFile; fileRef = B0D3F1DD245CAB8E003E44B6 /* AsyncImage.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
-		B02DF387245C685D00F29F4C /* CachingImageService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CachingImageService.swift; sourceTree = "<group>"; };
+		B02DF387245C685D00F29F4C /* ImageLoader.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageLoader.swift; sourceTree = "<group>"; };
 		B070D6D2245BA9F000FDF4A5 /* PhotoSchoolDemo.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = PhotoSchoolDemo.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		B070D6D5245BA9F000FDF4A5 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		B070D6D7245BA9F000FDF4A5 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -34,6 +35,7 @@
 		B070D6ED245BD79800FDF4A5 /* VideoService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VideoService.swift; sourceTree = "<group>"; };
 		B070D6EF245BDBF200FDF4A5 /* WebService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WebService.swift; sourceTree = "<group>"; };
 		B070D6F2245BDEE500FDF4A5 /* VideoListViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VideoListViewModel.swift; sourceTree = "<group>"; };
+		B0D3F1DD245CAB8E003E44B6 /* AsyncImage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AsyncImage.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -51,6 +53,7 @@
 			isa = PBXGroup;
 			children = (
 				B070D6D9245BA9F000FDF4A5 /* ContentView.swift */,
+				B0D3F1DD245CAB8E003E44B6 /* AsyncImage.swift */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -74,6 +77,7 @@
 		B070D6D4245BA9F000FDF4A5 /* PhotoSchoolDemo */ = {
 			isa = PBXGroup;
 			children = (
+				B0D3F1DF245CABB6003E44B6 /* Environment */,
 				B070D6EC245BD78B00FDF4A5 /* Service */,
 				B070D6F1245BDCB500FDF4A5 /* ViewModel */,
 				B070D6E9245BD73800FDF4A5 /* Model */,
@@ -109,7 +113,7 @@
 			children = (
 				B070D6EF245BDBF200FDF4A5 /* WebService.swift */,
 				B070D6ED245BD79800FDF4A5 /* VideoService.swift */,
-				B02DF387245C685D00F29F4C /* CachingImageService.swift */,
+				B02DF387245C685D00F29F4C /* ImageLoader.swift */,
 			);
 			path = Service;
 			sourceTree = "<group>";
@@ -120,6 +124,13 @@
 				B070D6F2245BDEE500FDF4A5 /* VideoListViewModel.swift */,
 			);
 			path = ViewModel;
+			sourceTree = "<group>";
+		};
+		B0D3F1DF245CABB6003E44B6 /* Environment */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = Environment;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -194,11 +205,12 @@
 			buildActionMask = 2147483647;
 			files = (
 				B070D6F0245BDBF200FDF4A5 /* WebService.swift in Sources */,
+				B0D3F1DE245CAB8E003E44B6 /* AsyncImage.swift in Sources */,
 				B070D6D6245BA9F000FDF4A5 /* AppDelegate.swift in Sources */,
 				B070D6EB245BD74400FDF4A5 /* Video.swift in Sources */,
 				B070D6F3245BDEE500FDF4A5 /* VideoListViewModel.swift in Sources */,
 				B070D6D8245BA9F000FDF4A5 /* SceneDelegate.swift in Sources */,
-				B02DF388245C685D00F29F4C /* CachingImageService.swift in Sources */,
+				B02DF388245C685D00F29F4C /* ImageLoader.swift in Sources */,
 				B070D6DA245BA9F000FDF4A5 /* ContentView.swift in Sources */,
 				B070D6EE245BD79800FDF4A5 /* VideoService.swift in Sources */,
 			);

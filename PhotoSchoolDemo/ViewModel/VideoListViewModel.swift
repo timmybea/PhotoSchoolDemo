@@ -12,17 +12,24 @@ import Combine
 class VideoListViewModel : ObservableObject {
     @Published var videos = [VideoViewModel]()
     
-    init() {
-        VideoService().getVideos { (result) in
-            switch result {
-            case .success(let videos):
-                DispatchQueue.main.async {
-                    self.videos = videos.map({ VideoViewModel($0) })
+    private let videoService: WebServiceVideo
+    
+    var cancellable: AnyCancellable?
+    
+    init(_ webServiceVideo: WebServiceVideo) {
+        self.videoService = webServiceVideo
+        
+        cancellable = self.videoService.getTestVideos()
+            .sink(receiveCompletion: { (completion) in
+                switch completion {
+                case .failure(let error):
+                    print("Error: \(error.localizedDescription), File: \(#file), Line: \(#line)")
+                case .finished:
+                    break
                 }
-            case .failure(let error):
-                print("\(error.localizedDescription), File: \(#file), Line: \(#line)")
-            }
-        }
+            }, receiveValue: { (videoResult) in
+                self.videos = videoResult.videos.map({ VideoViewModel($0) })
+            })
     }
 }
 
@@ -42,8 +49,8 @@ struct VideoViewModel {
         return video.name
     }
     
-    var thumbnail: String {
-        return video.thumbnail
+    var thumbnailURL: URL {
+        return URL(string: video.thumbnail)!
     }
     
 }

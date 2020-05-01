@@ -11,10 +11,23 @@ import Foundation
 class WebService {
     
     enum WebServiceError : Error {
-        case noResponse
-        case badStatus(_ status: Int)
+        case invalidResponse
+        case statusCode(_ status: Int)
         case noData
         case parsing
+    }
+    
+    func validate(_ data: Data, _ response: URLResponse) throws -> Data {
+        
+        guard let httpResponse = response as? HTTPURLResponse else {
+            throw WebServiceError.invalidResponse
+        }
+        
+        guard (200..<300).contains(httpResponse.statusCode) else {
+            throw WebServiceError.statusCode(httpResponse.statusCode)
+        }
+        
+        return data
     }
     
 }
