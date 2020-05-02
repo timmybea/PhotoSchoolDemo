@@ -8,17 +8,19 @@
 
 import SwiftUI
 
-struct ContentView: View {
+struct VideoListView: View {
     
-    @ObservedObject private var videoListViewModel = VideoListViewModel(VideoService())
-    @Environment(\.imageCache) var cache: ImageCache
+    @ObservedObject private var videoListViewModel: VideoListViewModel
+    
+    init(_ videoListViewModel: VideoListViewModel) {
+        self.videoListViewModel = videoListViewModel
+    }
     
     var body: some View {
         NavigationView {
             List(videoListViewModel.videos, id: \.id) { video in
-                HStack {
-                    AsyncImage(url: video.thumbnailURL, placeholder: Image(systemName: "photo"), cache: self.cache).frame(width: 40, height: 40).aspectRatio(contentMode: .fit).cornerRadius(4)
-                    Text(video.name)
+                NavigationLink(destination: VideoDetailView(video)) {
+                    VideoRowView(video)
                 }
             }.navigationBarTitle("Videos")
         }
@@ -28,6 +30,6 @@ struct ContentView: View {
 
 struct ContentView_Previews: PreviewProvider {
     static var previews: some View {
-        ContentView()
+        VideoListView(VideoListViewModel(VideoService()))
     }
 }

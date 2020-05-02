@@ -49,6 +49,10 @@ struct VideoViewModel {
         return video.name
     }
     
+    var description: String {
+        return video.description
+    }
+    
     var thumbnailURL: URL {
         return URL(string: video.thumbnail)!
     }
