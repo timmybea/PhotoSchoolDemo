@@ -10,17 +10,17 @@ import SwiftUI
 
 struct VideoRowView: View {
     
-    private let video: VideoViewModel
+    private let video: Video
     
     @Environment(\.imageCache) private var cache: ImageCache
     
-    init(_ video: VideoViewModel) {
+    init(_ video: Video) {
         self.video = video
     }
     
     var body: some View {
         HStack {
-            AsyncImage(url: video.thumbnailURL, placeholder: Image(systemName: "photo"), cache: self.cache).frame(width: 40, height: 40).aspectRatio(contentMode: .fit).cornerRadius(4)
+            AsyncImage(url: URL(string: video.thumbnail)!, placeholder: Image(systemName: "photo"), cache: self.cache).frame(width: 40, height: 40).aspectRatio(contentMode: .fit).cornerRadius(4)
             Text(video.name).font(.callout).padding(.trailing, 4.0)
         }
     }

@@ -10,6 +10,8 @@ import SwiftUI
 
 struct VideoListView: View {
     
+//    @EnvironmentObject var videoPlayer: VideoPlayer
+    
     @ObservedObject private var videoListViewModel: VideoListViewModel
     
     init(_ videoListViewModel: VideoListViewModel) {
