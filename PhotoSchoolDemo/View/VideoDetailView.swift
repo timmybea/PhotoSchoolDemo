@@ -15,13 +15,16 @@ struct VideoDetailView: View {
     
     @Environment(\.videoPlayer) private var videoPlayer: VideoPlayer
     
-    init(_ video: Video) {
+    @ObservedObject private var loader: ImageLoader
+    
+    init(_ video: Video, cache: ImageCache? = nil) {
+        self.loader = ImageLoader(url: URL(string: video.thumbnail)!, cache: cache)
         self.video = video
     }
         
     var body: some View {
         VStack(spacing: 8.0) {
-            VideoPlayerView().aspectRatio(4/3, contentMode: .fit).cornerRadius(4)
+            VideoPlayerView(self.videoPlayer, thumbnail: loader.image).aspectRatio(4/3, contentMode: .fit).cornerRadius(4)
             Text(video.name).font(.headline).multilineTextAlignment(.center)
             Text(video.description).font(.body)
             Spacer()
@@ -34,11 +37,11 @@ struct VideoDetailView: View {
                     Text("Download video")
             })
             .onAppear {
-                print("HERE: video detail appearing")
+                self.loader.load()
                 self.loadVideo()
         }
         .onDisappear {
-            print("HERE: video detail view disappearing")
+            self.loader.cancel()
             self.removeVideo()
         }
     }

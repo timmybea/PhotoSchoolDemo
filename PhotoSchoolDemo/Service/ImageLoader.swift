@@ -91,38 +91,3 @@ struct TemporaryImageCache: ImageCache {
     }
     
 }
-
-//struct ImageCacheKey: EnvironmentKey {
-//    
-//    static let defaultValue: ImageCache = TemporaryImageCache()
-//    
-//    
-//}
-//
-//struct VideoPlayerKey: EnvironmentKey {
-//    
-//    static let defaultValue: VideoPlayer = VideoPlayer()
-//    
-//}
-//
-//extension EnvironmentValues {
-//
-//    var imageCache: ImageCache {
-//        get {
-//            self[ImageCacheKey.self]
-//        }
-//        set {
-//            self[ImageCacheKey.self] = newValue
-//        }
-//    }
-//    
-////    var videoPlayer: VideoPlayer {
-////        get {
-////            self[VideoPlayerKey.self]
-////        }
-////        set {
-////            self[VideoPlayerKey.self] = newValue
-////        }
-////    }
-//
-//}

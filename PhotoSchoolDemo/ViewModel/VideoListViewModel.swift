@@ -33,33 +33,3 @@ class VideoListViewModel : ObservableObject {
             })
     }
 }
-
-// Change properties to read only.
-//struct VideoViewModel {
-//
-//    private var video: Video
-//
-//    init(_ video: Video) {
-//        self.video = video
-//    }
-//
-//    var id: Int {
-//        return video.id
-//    }
-//
-//    var name: String {
-//        return video.name
-//    }
-//
-//    var description: String {
-//        return video.description
-//    }
-//
-//    var thumbnailURL: URL {
-//        return URL(string: video.thumbnail)!
-//    }
-//
-//    var videoURL: URL {
-//        return URL(string: video.videoLink)!
-//    }
-//}

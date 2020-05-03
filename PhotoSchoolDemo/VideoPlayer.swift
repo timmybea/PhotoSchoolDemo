@@ -9,30 +9,14 @@ import Combine
 import AVKit
 
 //MARK: VideoPlayer
-
-
-struct StructVideoPlayer {
-    
-}
-
 class VideoPlayer: AVPlayer, ObservableObject {
+    
+    override init() {
+        super.init()
+        
+    }
 
-//    @Published var player: AVPlayer? {
-//        didSet {
-//            print("HERE: setting player \(player)")
-//        }
-//    }
-//
-//    var video: Video? {
-//        didSet {
-//            if let unwrappedVideo = video {
-//                self.player = AVPlayer(url: URL(string: unwrappedVideo.videoLink)!)
-//                self.player?.play() // move from here??
-//            } else {
-//                player?.pause()
-//                player = nil
-//            }
-//        }
-//    }
-
+    private func registerObservers() {
+        
+    }
 }

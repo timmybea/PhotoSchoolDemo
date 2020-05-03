@@ -10,7 +10,7 @@ import SwiftUI
 
 struct VideoListView: View {
     
-//    @EnvironmentObject var videoPlayer: VideoPlayer
+    @Environment(\.imageCache) private var cache: ImageCache
     
     @ObservedObject private var videoListViewModel: VideoListViewModel
     
@@ -21,7 +21,7 @@ struct VideoListView: View {
     var body: some View {
         NavigationView {
             List(videoListViewModel.videos, id: \.id) { video in
-                NavigationLink(destination: VideoDetailView(video)) {
+                NavigationLink(destination: VideoDetailView(video, cache: self.cache)) {
                     VideoRowView(video)
                 }
             }.navigationBarTitle("Videos")

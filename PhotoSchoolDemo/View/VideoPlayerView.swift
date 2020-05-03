@@ -11,15 +11,24 @@ import AVFoundation
 
 struct VideoPlayerView: UIViewRepresentable {
     
-    @Environment(\.videoPlayer) private var videoPlayer: VideoPlayer
+    let videoPlayer: VideoPlayer
+    let thumbnail: UIImage?
+    
+    init(_ videoPlayer: VideoPlayer, thumbnail: UIImage?) {
+        self.videoPlayer = videoPlayer
+        self.thumbnail = thumbnail
+    }
         
     func updateUIView(_ uiView: UIView, context: UIViewRepresentableContext<VideoPlayerView>) {
+        let currentThumbnail = self.thumbnail ?? UIImage(systemName: "photo")!
+        uiView.layer.contents = currentThumbnail.cgImage
+        uiView.layer.contentsGravity = .resizeAspect
         
     }
     
     func makeUIView(context: Context) -> UIView {
-        print("HERE: make ui view. have videoPlayer")
-        return VideoPlayerUIView(videoPlayer)
+        let currentThumbnail = self.thumbnail ?? UIImage(systemName: "photo")!
+        return VideoPlayerUIView(videoPlayer, thumbnail: currentThumbnail)
     }
     
 }
@@ -28,17 +37,18 @@ class VideoPlayerUIView: UIView {
     
     private let playerLayer: AVPlayerLayer
 
-    init(_ player: AVPlayer) {
-        print("HERE: init player ui view with player \(player)")
+    init(_ player: AVPlayer, thumbnail: UIImage) {
         
         self.playerLayer = AVPlayerLayer(player: player)
         self.playerLayer.videoGravity = AVLayerVideoGravity.resizeAspectFill
-        
+
         super.init(frame: .zero)
         
-        self.layer.addSublayer(self.playerLayer)
+        self.layer.contents = thumbnail.cgImage
+        self.layer.contentsGravity = .resizeAspect
+        
         self.playerLayer.frame = layer.bounds
-        self.backgroundColor = UIColor.darkGray
+        self.layer.addSublayer(self.playerLayer)
     }
     
     required init?(coder: NSCoder) {
@@ -47,9 +57,7 @@ class VideoPlayerUIView: UIView {
     
     override func layoutSubviews() {
         super.layoutSubviews()
-
-        print("HERE: laying out player layer \(playerLayer)")
-        //Match size of view
+        
         CATransaction.begin()
         CATransaction.setDisableActions(true)
         self.playerLayer.frame = self.bounds

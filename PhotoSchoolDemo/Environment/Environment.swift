@@ -12,7 +12,6 @@ struct ImageCacheKey: EnvironmentKey {
     
     static let defaultValue: ImageCache = TemporaryImageCache()
     
-    
 }
 
 struct VideoPlayerKey: EnvironmentKey {
