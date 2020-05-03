@@ -9,14 +9,41 @@ import Combine
 import AVKit
 
 //MARK: VideoPlayer
-class VideoPlayer: AVPlayer, ObservableObject {
-    
-    override init() {
-        super.init()
-        
-    }
+class VideoPlayer: ObservableObject {
 
-    private func registerObservers() {
-        
+    static let shared: VideoPlayer = VideoPlayer()
+    
+    private init() {}
+    
+    private var _player: AVPlayer = AVPlayer()
+    
+    var player: AVPlayer {
+        return _player
     }
+    
+    private var itemStatusObserver: NSKeyValueObservation?
+    
+    @Published var itemReady: Bool = false
+    
+    func updatePlayerItem(_ item: AVPlayerItem?) {
+        self.itemReady = false
+        self.player.replaceCurrentItem(with: item)
+        
+        self.itemStatusObserver = self.player.observe(\AVPlayer.currentItem?.status, options:  [.new, .old], changeHandler: { (playerItem, change) in
+           
+            if playerItem.status == .readyToPlay {
+                print("HERE: set item ready true")
+                self.itemReady = true
+            } else {
+                print("HERE: set item ready true")
+                self.itemReady = false
+            }
+        })
+    }
+    
+    deinit {
+        self.itemStatusObserver?.invalidate()
+    }
+    
+    
 }

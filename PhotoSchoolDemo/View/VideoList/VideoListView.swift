@@ -21,7 +21,7 @@ struct VideoListView: View {
     var body: some View {
         NavigationView {
             List(videoListViewModel.videos, id: \.id) { video in
-                NavigationLink(destination: VideoDetailView(video, cache: self.cache)) {
+                NavigationLink(destination: VideoDetailView(video)) {
                     VideoRowView(video)
                 }
             }.navigationBarTitle("Videos")

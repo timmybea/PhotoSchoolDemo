@@ -22,13 +22,13 @@ struct VideoPlayerView: UIViewRepresentable {
     func updateUIView(_ uiView: UIView, context: UIViewRepresentableContext<VideoPlayerView>) {
         let currentThumbnail = self.thumbnail ?? UIImage(systemName: "photo")!
         uiView.layer.contents = currentThumbnail.cgImage
-        uiView.layer.contentsGravity = .resizeAspect
+        uiView.layer.contentsGravity = .resizeAspectFill
         
     }
     
     func makeUIView(context: Context) -> UIView {
         let currentThumbnail = self.thumbnail ?? UIImage(systemName: "photo")!
-        return VideoPlayerUIView(videoPlayer, thumbnail: currentThumbnail)
+        return VideoPlayerUIView(videoPlayer.player, thumbnail: currentThumbnail)
     }
     
 }

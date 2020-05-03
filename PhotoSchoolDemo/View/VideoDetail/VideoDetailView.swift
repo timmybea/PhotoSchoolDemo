@@ -12,19 +12,18 @@ import AVFoundation
 struct VideoDetailView: View {
     
     private var video: Video
-    
-    @Environment(\.videoPlayer) private var videoPlayer: VideoPlayer
-    
-    @ObservedObject private var loader: ImageLoader
-    
-    init(_ video: Video, cache: ImageCache? = nil) {
-        self.loader = ImageLoader(url: URL(string: video.thumbnail)!, cache: cache)
+        
+    @Environment(\.imageCache) private var cache: ImageCache
+
+    @ObservedObject private var videoPlayer: VideoPlayer = VideoPlayer.shared
+            
+    init(_ video: Video) {
         self.video = video
     }
         
     var body: some View {
         VStack(spacing: 8.0) {
-            VideoPlayerView(self.videoPlayer, thumbnail: loader.image).aspectRatio(4/3, contentMode: .fit).cornerRadius(4)
+            ActionableVideoView(ImageLoader(url: URL(string: video.thumbnail)!, cache: cache)).aspectRatio(4/3, contentMode: .fit).cornerRadius(4)
             Text(video.name).font(.headline).multilineTextAlignment(.center)
             Text(video.description).font(.body)
             Spacer()
@@ -37,29 +36,29 @@ struct VideoDetailView: View {
                     Text("Download video")
             })
             .onAppear {
-                self.loader.load()
+//                self.loader.load()
                 self.loadVideo()
         }
         .onDisappear {
-            self.loader.cancel()
+//            self.loader.cancel()
             self.removeVideo()
         }
     }
     
     fileprivate func loadVideo() {
-        videoPlayer.replaceCurrentItem(with: AVPlayerItem(url: URL(string: video.videoLink)!))
-        videoPlayer.play()
+        videoPlayer.updatePlayerItem(AVPlayerItem(url: URL(string: video.videoLink)!))
+//        videoPlayer.player.replaceCurrentItem(with: AVPlayerItem(url: URL(string: video.videoLink)!))
+        
+//        videoPlayer.play()
     }
     
     fileprivate func removeVideo() {
-        videoPlayer.replaceCurrentItem(with: nil)
+        videoPlayer.updatePlayerItem(nil)
+//        videoPlayer.player.replaceCurrentItem(with: nil)
     }
       
-}
-
-struct VideoDetailView_Previews: PreviewProvider {
-    static var previews: some View {
-        return VideoDetailView(PreviewVideoListData().videos.first!)
+    fileprivate func setupNotificationObservers() {
+        
     }
+    
 }
-

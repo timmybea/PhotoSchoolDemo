@@ -7,6 +7,7 @@
 //
 
 import SwiftUI
+import AVKit
 
 struct ImageCacheKey: EnvironmentKey {
     
@@ -14,11 +15,11 @@ struct ImageCacheKey: EnvironmentKey {
     
 }
 
-struct VideoPlayerKey: EnvironmentKey {
-    
-    static let defaultValue: VideoPlayer = VideoPlayer()
-    
-}
+//struct AVPlayerKey : EnvironmentKey {
+//
+//    static let defaultValue: AVPlayer = AVPlayer()
+//
+//}
 
 extension EnvironmentValues {
 
@@ -31,13 +32,13 @@ extension EnvironmentValues {
         }
     }
     
-    var videoPlayer: VideoPlayer {
-        get {
-            self[VideoPlayerKey.self]
-        }
-        set {
-            self[VideoPlayerKey.self] = newValue
-        }
-    }
+//    var player: AVPlayer {
+//        get {
+//            self[AVPlayerKey.self]
+//        }
+//        set {
+//            self[AVPlayerKey.self] = newValue
+//        }
+//    }
 
 }
