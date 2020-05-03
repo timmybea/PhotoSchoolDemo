@@ -45,7 +45,7 @@ class VideoPlayerUIView: UIView {
         super.init(frame: .zero)
         
         self.layer.contents = thumbnail.cgImage
-        self.layer.contentsGravity = .resizeAspect
+        self.layer.contentsGravity = .resizeAspectFill
         
         self.playerLayer.frame = layer.bounds
         self.layer.addSublayer(self.playerLayer)
