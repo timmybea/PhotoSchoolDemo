@@ -10,6 +10,7 @@ import Foundation
 import Combine
 import SwiftUI
 
+//MARK: URLImageLoader class
 class ImageLoader: ObservableObject {
     
     @Published var image: UIImage?
@@ -71,23 +72,3 @@ class ImageLoader: ObservableObject {
     
 }
 
-protocol ImageCache {
-    
-    subscript(_ url: URL) -> UIImage? { get set }
-    
-}
-
-struct TemporaryImageCache: ImageCache {
-    
-    private let cache = NSCache<NSURL, UIImage>()
-    
-    subscript(_ key: URL) -> UIImage? {
-        get {
-            return cache.object(forKey: key as NSURL)
-        }
-        set {
-            newValue == nil ? cache.removeObject(forKey: key as NSURL) : cache.setObject(newValue!, forKey: key as NSURL)
-        }
-    }
-    
-}

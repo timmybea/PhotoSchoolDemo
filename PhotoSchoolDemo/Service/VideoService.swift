@@ -9,10 +9,12 @@
 import Foundation
 import Combine
 
+//MARK: WebServiceVideo
 protocol WebServiceVideo {
      func getTestVideos() -> AnyPublisher<VideoResult, Error>
 }
 
+//MARK: VideoService
 class VideoService : WebService, WebServiceVideo {
     
     enum VideoURL {

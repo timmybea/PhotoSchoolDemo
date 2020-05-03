@@ -8,6 +8,7 @@
 
 import Foundation
 
+//MARK: WebService
 class WebService {
     
     enum WebServiceError : Error {
@@ -16,7 +17,7 @@ class WebService {
         case noData
         case parsing
     }
-    
+
     func validate(_ data: Data, _ response: URLResponse) throws -> Data {
         
         guard let httpResponse = response as? HTTPURLResponse else {

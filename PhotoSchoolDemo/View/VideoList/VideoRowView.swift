@@ -30,7 +30,8 @@ struct VideoRowView: View {
 struct VideoRowView_Previews: PreviewProvider {
     
     static var previews: some View {
-        VideoRowView(PreviewVideoListData().videos.first!).previewLayout(.fixed(width: 300, height: 60))
+        let video = TestPreviewVideoResult().videoResult.videos.first!
+        return VideoRowView(video).previewLayout(.fixed(width: 300, height: 60))
     }
     
 }

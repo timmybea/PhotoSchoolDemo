@@ -18,6 +18,7 @@ class VideoListViewModel : ObservableObject {
     var cancellable: AnyCancellable?
     
     init(_ webServiceVideo: WebServiceVideo) {
+                
         self.videoService = webServiceVideo
         
         cancellable = self.videoService.getTestVideos()
@@ -32,4 +33,11 @@ class VideoListViewModel : ObservableObject {
                 self.videos = videoResult.videos.map({ $0 })
             })
     }
+    
+    /// Initializer for preview provider
+    init(testPreviewData: [Video]) {
+        self.videoService = VideoService()
+        self.videos = testPreviewData
+    }
+    
 }

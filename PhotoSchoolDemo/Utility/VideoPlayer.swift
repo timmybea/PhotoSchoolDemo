@@ -10,10 +10,6 @@ import AVKit
 
 //MARK: VideoPlayer
 class VideoPlayer: ObservableObject {
-
-    static let shared: VideoPlayer = VideoPlayer()
-    
-    private init() {}
     
     private var _player: AVPlayer = AVPlayer()
     
@@ -22,28 +18,32 @@ class VideoPlayer: ObservableObject {
     }
     
     private var itemStatusObserver: NSKeyValueObservation?
+    private var playerRateObserver: NSKeyValueObservation?
     
     @Published var itemReady: Bool = false
+    @Published var playerRate: Float = 0.0
     
     func updatePlayerItem(_ item: AVPlayerItem?) {
         self.itemReady = false
         self.player.replaceCurrentItem(with: item)
         
-        self.itemStatusObserver = self.player.observe(\AVPlayer.currentItem?.status, options:  [.new, .old], changeHandler: { (playerItem, change) in
+        self.itemStatusObserver = self.player.observe(\AVPlayer.currentItem?.status, options:  [.new, .old]) { [weak self] (playerItem, change) in
            
             if playerItem.status == .readyToPlay {
-                print("HERE: set item ready true")
-                self.itemReady = true
+                self?.itemReady = true
             } else {
-                print("HERE: set item ready true")
-                self.itemReady = false
+                self?.itemReady = false
             }
-        })
+        }
+        
+        self.playerRateObserver = self.player.observe(\AVPlayer.rate, options: [.new]) { [weak self] (player, change) in
+            self?.playerRate = player.rate
+        }
+        
     }
     
     deinit {
         self.itemStatusObserver?.invalidate()
     }
-    
     
 }

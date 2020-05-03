@@ -8,10 +8,12 @@
 
 import Foundation
 
+//MARK: VideoResult
 struct VideoResult : Codable {
     var videos: [Video]
 }
 
+//MARK: Video
 struct Video : Codable {
     var id: Int
     var name: String

@@ -21,7 +21,7 @@ struct VideoListView: View {
     var body: some View {
         NavigationView {
             List(videoListViewModel.videos, id: \.id) { video in
-                NavigationLink(destination: VideoDetailView(video)) {
+                NavigationLink(destination: VideoDetailView(video: video, videoPlayer: VideoPlayer())) {
                     VideoRowView(video)
                 }
             }.navigationBarTitle("Videos")
@@ -30,8 +30,13 @@ struct VideoListView: View {
     
 }
 
-struct ContentView_Previews: PreviewProvider {
+struct VideoListView_Previews: PreviewProvider {
+    
     static var previews: some View {
-        VideoListView(VideoListViewModel(VideoService()))
+        let videoResult = TestPreviewVideoResult().videoResult
+        let videoListViewModel = VideoListViewModel(testPreviewData: videoResult.videos)
+        return VideoListView(videoListViewModel)
     }
+    
 }
+

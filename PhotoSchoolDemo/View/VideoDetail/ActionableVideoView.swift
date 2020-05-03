@@ -12,31 +12,44 @@ struct ActionableVideoView: View {
         
     @ObservedObject private var loader: ImageLoader
     
-    @ObservedObject private var videoPlayer: VideoPlayer = VideoPlayer.shared
+    @ObservedObject private var videoPlayer: VideoPlayer
     
-    init(_ imageLoader: ImageLoader) {
+    @State private var shouldShowPauseButton = true
+    
+    init(_ imageLoader: ImageLoader, videoPlayer: VideoPlayer) {
         self.loader = imageLoader
+        self.videoPlayer = videoPlayer
     }
     
     var body: some View {
         ZStack {
             VideoPlayerView(self.videoPlayer, thumbnail: loader.image)
-            if videoPlayer.itemReady && videoPlayer.player.rate == 0 {
+            if videoPlayer.itemReady {
                 //play
                 Button(action: {
-                    print("Button tapped")
-                    self.videoPlayer.player.rate = 1
+                    self.videoPlayer.player.rate = self.videoPlayer.player.rate == 0 ? 1.0 : 0.0
+                    self.shouldShowPauseButton = self.videoPlayer.player.rate == 1
+                    DispatchQueue.main.asyncAfter(deadline: .now() + 1.0) {
+                        self.shouldShowPauseButton = false
+                    }
                 }) {
-                    Text("Play video")
-                    
-                }
-            } else if videoPlayer.itemReady {
-                //pause
-                Button(action: {
-                    print("Button tapped")
-                    self.videoPlayer.player.rate = 0
-                }) {
-                    Text("Pause video")
+                    if self.videoPlayer.player.rate == 0 {
+                        Image(systemName: "play.circle")
+                            .resizable()
+                            .frame(width: 32.0, height: 32.0)
+                            .foregroundColor(.white)
+                    } else {
+                        ZStack {
+                            Rectangle().foregroundColor(.clear)
+                            
+                            if shouldShowPauseButton {
+                                Image(systemName: "pause.circle")
+                                    .resizable()
+                                    .frame(width: 32.0, height: 32.0)
+                                    .foregroundColor(.white)
+                            }
+                        }
+                    }
                 }
             }
         }
@@ -45,14 +58,8 @@ struct ActionableVideoView: View {
         }
         .onDisappear {
             self.loader.cancel()
-            
+            self.shouldShowPauseButton = true
         }
     }
 
 }
-
-//struct ActionableVideoView_Previews: PreviewProvider {
-//    static var previews: some View {
-//        ActionableVideoView()
-//    }
-//}

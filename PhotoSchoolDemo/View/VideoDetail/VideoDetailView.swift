@@ -15,15 +15,16 @@ struct VideoDetailView: View {
         
     @Environment(\.imageCache) private var cache: ImageCache
 
-    @ObservedObject private var videoPlayer: VideoPlayer = VideoPlayer.shared
+    @ObservedObject private var videoPlayer: VideoPlayer = VideoPlayer()
             
-    init(_ video: Video) {
+    init(video: Video, videoPlayer: VideoPlayer) {
         self.video = video
+        self.videoPlayer = videoPlayer
     }
         
     var body: some View {
         VStack(spacing: 8.0) {
-            ActionableVideoView(ImageLoader(url: URL(string: video.thumbnail)!, cache: cache)).aspectRatio(4/3, contentMode: .fit).cornerRadius(4)
+            ActionableVideoView(ImageLoader(url: URL(string: video.thumbnail)!, cache: cache), videoPlayer: videoPlayer).aspectRatio(4/3, contentMode: .fit).cornerRadius(4)
             Text(video.name).font(.headline).multilineTextAlignment(.center)
             Text(video.description).font(.body)
             Spacer()
@@ -33,32 +34,25 @@ struct VideoDetailView: View {
                 Button(action: {
                     print("Button tapped")
                 }) {
-                    Text("Download video")
+                    HStack {
+                        Text("Download video")
+                        Image(systemName: "square.and.arrow.down")
+                    }
             })
             .onAppear {
-//                self.loader.load()
                 self.loadVideo()
         }
         .onDisappear {
-//            self.loader.cancel()
             self.removeVideo()
         }
     }
     
     fileprivate func loadVideo() {
         videoPlayer.updatePlayerItem(AVPlayerItem(url: URL(string: video.videoLink)!))
-//        videoPlayer.player.replaceCurrentItem(with: AVPlayerItem(url: URL(string: video.videoLink)!))
-        
-//        videoPlayer.play()
     }
     
     fileprivate func removeVideo() {
         videoPlayer.updatePlayerItem(nil)
-//        videoPlayer.player.replaceCurrentItem(with: nil)
     }
       
-    fileprivate func setupNotificationObservers() {
-        
-    }
-    
 }
