@@ -25,6 +25,7 @@
 		B09C5BD3245DED54008B141C /* VideoPlayerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B09C5BD2245DED54008B141C /* VideoPlayerView.swift */; };
 		B0BD9D25245F1FED00FE4182 /* ActionableVideoView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B0BD9D24245F1FED00FE4182 /* ActionableVideoView.swift */; };
 		B0BD9D2B245F733C00FE4182 /* ImageCache.swift in Sources */ = {isa = PBXBuildFile; fileRef = B0BD9D2A245F733C00FE4182 /* ImageCache.swift */; };
+		B0BD9D2F245F848C00FE4182 /* DownloadService.swift in Sources */ = {isa = PBXBuildFile; fileRef = B0BD9D2E245F848C00FE4182 /* DownloadService.swift */; };
 		B0C76BD0245E2428001B47BF /* Environment.swift in Sources */ = {isa = PBXBuildFile; fileRef = B0C76BCF245E2428001B47BF /* Environment.swift */; };
 		B0D3F1DE245CAB8E003E44B6 /* AsyncImage.swift in Sources */ = {isa = PBXBuildFile; fileRef = B0D3F1DD245CAB8E003E44B6 /* AsyncImage.swift */; };
 /* End PBXBuildFile section */
@@ -50,6 +51,7 @@
 		B09C5BD2245DED54008B141C /* VideoPlayerView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VideoPlayerView.swift; sourceTree = "<group>"; };
 		B0BD9D24245F1FED00FE4182 /* ActionableVideoView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ActionableVideoView.swift; sourceTree = "<group>"; };
 		B0BD9D2A245F733C00FE4182 /* ImageCache.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageCache.swift; sourceTree = "<group>"; };
+		B0BD9D2E245F848C00FE4182 /* DownloadService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DownloadService.swift; sourceTree = "<group>"; };
 		B0C76BCF245E2428001B47BF /* Environment.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Environment.swift; sourceTree = "<group>"; };
 		B0D3F1DD245CAB8E003E44B6 /* AsyncImage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AsyncImage.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -177,6 +179,7 @@
 				B02DF387245C685D00F29F4C /* ImageLoader.swift */,
 				B0BD9D2A245F733C00FE4182 /* ImageCache.swift */,
 				B09C5BD0245DEAF8008B141C /* VideoPlayer.swift */,
+				B0BD9D2E245F848C00FE4182 /* DownloadService.swift */,
 			);
 			path = Utility;
 			sourceTree = "<group>";
@@ -277,6 +280,7 @@
 				B09C5BCF245DE2ED008B141C /* TestPreviewVideoResult.swift in Sources */,
 				B09C5BCC245DDFF1008B141C /* VideoRowView.swift in Sources */,
 				B09C5BD3245DED54008B141C /* VideoPlayerView.swift in Sources */,
+				B0BD9D2F245F848C00FE4182 /* DownloadService.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
